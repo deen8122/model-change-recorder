@@ -22,3 +22,7 @@ class Item extends Model
     }
 }
 ```
+#### Запуск воркера
+```bash
+php artisan queue:listen --queue=change_tracker
+```

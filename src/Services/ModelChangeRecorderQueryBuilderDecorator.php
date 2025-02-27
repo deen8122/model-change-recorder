@@ -1,16 +1,20 @@
 <?php
 
 
-namespace Deen812\ModelChangeRecorder;
+namespace Deen812\ModelChangeRecorder\Services;
 
+use Deen812\ModelChangeRecorder\Events\ModelChangeRecorderEvents;
 use Illuminate\Database\Eloquent\Builder;
 
 class ModelChangeRecorderQueryBuilderDecorator extends Builder
 {
     public function update(array $values)
     {
-        dd($values,$this->query->wheres,$this->query->toRawSql());
+       // dd($values,$this->query->wheres,$this->query->toRawSql());
+     //   $this->getQuery()
+        (new ModelChangeRecorderEvents())->updatingThrowQuery($values,$this->query , $this->getModel());
         return parent::update($values);
+
 
     }
     public function insert(array $attributes = [])

@@ -3,6 +3,7 @@
 namespace Deen812\ModelChangeRecorder\Events;
 
 use Deen812\ModelChangeRecorder\Jobs\ModelChangeRecorderJob;
+use Deen812\ModelChangeRecorder\Services\ModelChangeRecorderQueryBuilderDecorator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\SerializesModels;
@@ -29,20 +30,31 @@ class ModelChangeRecorderEvents
     public function updating(Model $item)
     {
         $currentUser = $this->detectUser();
-
-        // Get changed attributes
         $diff = $this->compareModels($item);
-        // If nothing changed - do nothing
-
         if ($diff === false) {
             return;
         }
 
         $model = $this->getCleaModel($item);
-
         $callBy = self::getGraphQLBacktrace();
 
         dispatch((new ModelChangeRecorderJob($model, $currentUser, $diff, 'Update', $callBy))->onQueue('change_tracker'));
+    }
+
+    public function updatingThrowQuery( $values, $query ,$model)
+    {
+      //  dd($query->toRawSql());
+     //   dd($values,$builder->query->wheres,$builder->query->toRawSql());
+        $callBy = self::getGraphQLBacktrace();
+      //  dd($builder->query);
+        $model->id = 1;
+        dispatch((new ModelChangeRecorderJob($model , $this->detectUser(), [
+            'old' => '*',
+            'new' => $values
+
+        ] , 'Update', $callBy))
+            ->onQueue('change_tracker'));
+
     }
 
     public function deleting(Model $item): void
