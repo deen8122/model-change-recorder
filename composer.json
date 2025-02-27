@@ -1,0 +1,32 @@
+{
+  "name": "deen812/model-change-recorder",
+  "description": "Библиотека для отслеживания изменений в модели",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Кагарманов Динис",
+      "email": "deen812@mail.ru"
+    }
+  ],
+  "keywords": [
+    "laravel",
+    "model"
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Deen812\\ModelChangeRecorder\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Deen812\\ModelChangeRecorder\\ModelChangeRecorderServiceProvider"
+      ]
+    }
+  }
+}
