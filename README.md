@@ -1,4 +1,24 @@
-model-change-recorder
+Model change recorder - пакет для хранения изменений в модели Laravel
 ===============
-php artisan vendor:publish --tag=deen812/model-change-recorder
-composer require deen812/model-change-recorder:@dev
+
+## Установка
+```bash
+composer require deen812/model-change-recorder
+```
+Для создания таблицы где буду хранится данные запустите миграцию:
+```bash
+php artisan migrate
+```
+## Использование
+
+####Добавление в метод модели
+```php
+class Item extends Model
+{
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(new ModelChangeRecorderEvents());
+    }
+}
+```
