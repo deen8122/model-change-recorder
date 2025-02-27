@@ -11,7 +11,7 @@ php artisan migrate
 ```
 ## Использование
 
-####Добавление в метод модели
+#### Добавление в метод модели
 ```php
 class Item extends Model
 {
