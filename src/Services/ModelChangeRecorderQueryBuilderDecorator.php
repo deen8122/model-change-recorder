@@ -8,30 +8,15 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ModelChangeRecorderQueryBuilderDecorator extends Builder
 {
-    public function update(array $values)
+    public function update(array $values): int
     {
-       // dd($values,$this->query->wheres,$this->query->toRawSql());
-     //   $this->getQuery()
-        (new ModelChangeRecorderEvents())->updatingThrowQuery($values,$this->query , $this->getModel());
+        (new ModelChangeRecorderEvents())->updatingThrowQuery($values, $this);
+
         return parent::update($values);
-
-
     }
-    public function insert(array $attributes = [])
+    // todo - дорабоать
+    public function insert(array $attributes = []): bool
     {
-
-        $this->query->applyAfterQueryCallbacks(function (){
-            dd('cccc');
-        });
-        $resilt = parent::insert($attributes);
-        dd($resilt);
-        return $resilt;
-
-    }
-
-    public function create(array $attributes = [])
-    {
-
-        return parent::create($attributes);
+        return parent::insert($attributes);
     }
 }

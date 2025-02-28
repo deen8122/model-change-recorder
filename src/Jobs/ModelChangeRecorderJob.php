@@ -24,11 +24,6 @@ class ModelChangeRecorderJob implements ShouldQueue
     protected $userId;
     protected $callBy;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(Model $model, $userId, array|bool $diff, $action, $callBy)
     {
         $this->model = serialize($model);
@@ -38,11 +33,6 @@ class ModelChangeRecorderJob implements ShouldQueue
         $this->callBy = $callBy;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle(): void
     {
         $this->model = unserialize($this->model);
@@ -53,7 +43,6 @@ class ModelChangeRecorderJob implements ShouldQueue
             return;
         }
 
-        //if (\App::environment('prod')) {
         (new ModelChangeRecorderService())->recordModel(
             $this->model,
             $this->userId,
@@ -61,7 +50,5 @@ class ModelChangeRecorderJob implements ShouldQueue
             $this->action,
             $this->callBy
         );
-        //}
     }
-
 }

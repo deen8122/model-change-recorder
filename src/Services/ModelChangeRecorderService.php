@@ -5,13 +5,12 @@ namespace Deen812\ModelChangeRecorder\Services;
 
 use BadMethodCallException;
 use Deen812\ModelChangeRecorder\Models\ModelChangeRecorder;
-use Deen812\ModelChangeTracker\Models\ModelChangeTracker;
 use Illuminate\Database\Eloquent\Model;
 
 class ModelChangeRecorderService
 {
 
-    public function recordModel(Model $item, $userId, array|bool $diff, $action, string $callBy = null)
+    public function recordModel(Model $item, $userId, array|bool $diff, $action, string $callBy = null): void
     {
         $primaryKey = is_array($item->getKeyName()) ? json_encode($item->getKeyName()) : $item->getKeyName();
 
@@ -33,8 +32,8 @@ class ModelChangeRecorderService
             $model->old_json = json_encode($diff['old']);
             $model->new_json = json_encode($diff['new']);
         } catch (BadMethodCallException $exception) {
+            //todo - доработать
         }
-        //   $model->log_date = Carbon::now();
         $model->save();
     }
 }
