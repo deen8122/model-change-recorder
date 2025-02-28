@@ -7,7 +7,7 @@ Model change recorder - пакет для хранения изменений в
 composer require deen812/model-change-recorder
 ```
 
-Для создания таблицы где буду хранится данные запустите миграцию:
+Для создания таблицы запустите миграцию:
 
 ```bash
 php artisan migrate
@@ -17,7 +17,7 @@ php artisan migrate
 
 #### Добавление в метод модели
 
-Когда происходит редактиование модели достаточно добавить класс ModelChangeRecorderEvents
+Когда происходит редактирование модели достаточно добавить класс ModelChangeRecorderEvents
 
 ```php
 class Item extends Model
