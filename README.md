@@ -34,7 +34,7 @@ class Item extends Model
 Когда необходимо отслеживать изменения на уровне запросов, например:
 
 ```php
-//Событие модели update не будет вызван
+//Событие модели update не будет вызвано
 Item::query()->update(['price' => rand(8,888)]);
 ```
 
@@ -50,7 +50,7 @@ class Item extends Model
         self::observe(new ModelChangeRecorderEvents());
     }
     
-    //Теперь обнводение через queryBuilder тоже будет отслеживаться
+    //Теперь обновление через queryBuilder тоже будет отслеживаться
     public function newEloquentBuilder($query)
     {
         return new ModelChangeRecorderQueryBuilderDecorator($query);
