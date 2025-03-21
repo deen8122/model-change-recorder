@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModelChangeRecorder extends Model
 {
-    protected $table = 'model_change_recorder';
 
     protected $fillable = [
         'table_name',

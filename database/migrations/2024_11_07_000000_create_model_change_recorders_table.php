@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create(
-            'model_change_recorder',
+            'model_change_recorders',
             function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('table_name');
@@ -32,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('model_change_recorder');
+        Schema::dropIfExists('model_change_recorders');
     }
 };

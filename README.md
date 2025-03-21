@@ -7,9 +7,10 @@ Model change recorder - пакет для хранения изменений в
 composer require deen812/model-change-recorder
 ```
 
-Для создания таблицы запустите миграцию:
+Для копирования файла миграции в проект и запуска выполните:
 
 ```bash
+php artisan vendor:publish --provider="Deen812\ModelChangeRecorder\ModelChangeRecorderServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
@@ -53,7 +54,7 @@ class Item extends Model
     //Теперь обновление через queryBuilder тоже будет отслеживаться
     public function newEloquentBuilder($query)
     {
-        return new ModelChangeRecorderQueryBuilderDecorator($query);
+        return new ModelChangeRecorderQueryBuilder($query);
     }
 }
 ```
