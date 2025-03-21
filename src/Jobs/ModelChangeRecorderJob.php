@@ -19,12 +19,11 @@ class ModelChangeRecorderJob implements ShouldQueue, ShouldBeUniqueUntilProcessi
     use Queueable;
     use SerializesModels;
 
-
-    protected  $model;
-    protected  $action;
-    protected  $diff;
-    protected  $userId;
-    protected  $callBy;
+    protected $model;
+    protected $action;
+    protected $diff;
+    protected $userId;
+    protected $callBy;
 
     public function __construct(Model $model, string|int|null $userId, array|bool $diff, string $action, $callBy)
     {
@@ -40,11 +39,10 @@ class ModelChangeRecorderJob implements ShouldQueue, ShouldBeUniqueUntilProcessi
      */
     public function uniqueId(): string
     {
-        if($this->action == 'Create' || $this->action == 'Delete'){
-            return (string)rand(1,10000);
-        }
-        $model =   unserialize($this->model);
-        return $this->diff;
+        $model = unserialize($this->model);
+        $modelId = $model->{$model->getKeyName()};
+
+        return $modelId . ':' . $this->action;
     }
 
     public function handle(): void
