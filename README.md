@@ -18,7 +18,7 @@ php artisan migrate
 
 #### Добавление в метод модели
 
-Когда происходит редактирование модели достаточно добавить класс ModelChangeRecorderEvents
+Для отслеживания редактирования модели достаточно добавить класс ModelChangeRecorderEvents
 
 ```php
 class Item extends Model
